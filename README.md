@@ -1,5 +1,4 @@
 ## Projekt Softwareentwicklung
-![📦 Projektstatus: In Arbeit](https://img.shields.io/badge/Status-In%20Arbeit-blue)
 ![🧠 Sprache: C#](https://img.shields.io/badge/Sprache-C%23-68217A)
 ![🖼️ GUI: Windows Forms](https://img.shields.io/badge/GUI-Windows%20Forms-1E90FF)
 ![🧮 Vergleich: SHA-256 Hashing](https://img.shields.io/badge/Hashing-SHA--256-4CAF50)
