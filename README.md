@@ -16,5 +16,5 @@ Die Anwendung wird mit **Windows Forms** entwickelt und bietet eine einfache gra
 ---
 
  **Weitere Details** zu Funktionen, Architektur, Team-Aufteilung und verwendeten Bibliotheken findest du im  
-➡️ [Projekt-Wiki](https://github.com/Mysteri04/Softwareentwicklungs-Projekt/wiki)
+➡️ [Projekt-Wiki](https://github.com/Mysteri04/Softwareentwicklungs-Projekt/wiki).
 
