@@ -1,4 +1,4 @@
-# 📁 Softwareentwicklungs Projekt – Duplikaterkennung
+# Softwareentwicklungs Projekt – Duplikaterkennung
 
 ![Sprache: C#](https://img.shields.io/badge/Sprache-C%23-68217A)
 ![🖼GUI: Windows Forms](https://img.shields.io/badge/GUI-Windows%20Forms-1E90FF)
@@ -15,6 +15,6 @@ Die Anwendung wird mit **Windows Forms** entwickelt und bietet eine einfache gra
 
 ---
 
-📘 **Weitere Details** zu Funktionen, Architektur, Team-Aufteilung und verwendeten Bibliotheken findest du im  
+ **Weitere Details** zu Funktionen, Architektur, Team-Aufteilung und verwendeten Bibliotheken findest du im  
 ➡️ [📖 Projekt-Wiki](https://github.com/Mysteri04/Softwareentwicklungs-Projekt/wiki)
 
