@@ -1,4 +1,4 @@
-# 📁 Softwareentwicklungs-Projekt – Duplikaterkennung
+# 📁 Softwareentwicklungs Projekt – Duplikaterkennung
 
 ![Sprache: C#](https://img.shields.io/badge/Sprache-C%23-68217A)
 ![🖼GUI: Windows Forms](https://img.shields.io/badge/GUI-Windows%20Forms-1E90FF)
