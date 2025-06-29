@@ -3,8 +3,6 @@
 ![Sprache: C#](https://img.shields.io/badge/Sprache-C%23-68217A)
 ![🖼GUI: Windows Forms](https://img.shields.io/badge/GUI-Windows%20Forms-1E90FF)
 ![Vergleich: SHA-256 Hashing](https://img.shields.io/badge/Hashing-SHA--256-4CAF50)
-![IDE: Visual Studio 2022](https://img.shields.io/badge/IDE-Visual%20Studio%202022-purple)
-![Abgabe: 24. Juli 2025](https://img.shields.io/badge/Abgabe-24.%20Juli%202025-red)
 
 ---
 
