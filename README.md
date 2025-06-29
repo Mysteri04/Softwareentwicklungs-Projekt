@@ -1,5 +1,5 @@
 ## Projekt Softwareentwicklung
-![Programmsprache: C#]
+![Programmsprache: Sprache C#](https://img.shields.io/badge/Sprache-C#-blue)
 ## 📄 Kurzüberblick
 
 Dieses C#-Projekt dient zur Erkennung doppelter Dateien innerhalb eines ausgewählten Verzeichnisses.  
