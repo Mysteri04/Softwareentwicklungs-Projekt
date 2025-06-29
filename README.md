@@ -1,3 +1,5 @@
+## Projekt Softwareentwicklung
+
 ## 📄 Kurzüberblick
 
 Dieses C#-Projekt dient zur Erkennung doppelter Dateien innerhalb eines ausgewählten Verzeichnisses.  
