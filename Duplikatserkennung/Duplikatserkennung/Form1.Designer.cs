@@ -34,11 +34,12 @@
             this.button1 = new System.Windows.Forms.Button();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.txtAuswahlOrdner = new System.Windows.Forms.RichTextBox();
+            this.listviewDuplicates = new System.Windows.Forms.ListView();
             this.SuspendLayout();
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(410, 282);
+            this.btnClose.Location = new System.Drawing.Point(621, 294);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);
             this.btnClose.TabIndex = 0;
@@ -48,7 +49,7 @@
             // 
             // btnWaehlen
             // 
-            this.btnWaehlen.Location = new System.Drawing.Point(62, 136);
+            this.btnWaehlen.Location = new System.Drawing.Point(12, 12);
             this.btnWaehlen.Name = "btnWaehlen";
             this.btnWaehlen.Size = new System.Drawing.Size(97, 23);
             this.btnWaehlen.TabIndex = 1;
@@ -58,7 +59,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(309, 136);
+            this.button1.Location = new System.Drawing.Point(339, 11);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(120, 23);
             this.button1.TabIndex = 2;
@@ -72,7 +73,7 @@
             // 
             // txtAuswahlOrdner
             // 
-            this.txtAuswahlOrdner.Location = new System.Drawing.Point(62, 165);
+            this.txtAuswahlOrdner.Location = new System.Drawing.Point(12, 41);
             this.txtAuswahlOrdner.Name = "txtAuswahlOrdner";
             this.txtAuswahlOrdner.ReadOnly = true;
             this.txtAuswahlOrdner.Size = new System.Drawing.Size(100, 96);
@@ -80,14 +81,28 @@
             this.txtAuswahlOrdner.Text = "";
             this.txtAuswahlOrdner.TextChanged += new System.EventHandler(this.txtAuswahlOrdner_TextChanged);
             // 
+            // listviewDuplicates
+            // 
+            this.listviewDuplicates.FullRowSelect = true;
+            this.listviewDuplicates.GridLines = true;
+            this.listviewDuplicates.HideSelection = false;
+            this.listviewDuplicates.Location = new System.Drawing.Point(130, 40);
+            this.listviewDuplicates.Name = "listviewDuplicates";
+            this.listviewDuplicates.Size = new System.Drawing.Size(566, 97);
+            this.listviewDuplicates.TabIndex = 6;
+            this.listviewDuplicates.UseCompatibleStateImageBehavior = false;
+            this.listviewDuplicates.View = System.Windows.Forms.View.Details;
+            // 
             // Form1
             // 
-            this.ClientSize = new System.Drawing.Size(497, 317);
+            this.ClientSize = new System.Drawing.Size(708, 329);
+            this.Controls.Add(this.listviewDuplicates);
             this.Controls.Add(this.txtAuswahlOrdner);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnWaehlen);
             this.Controls.Add(this.btnClose);
             this.Name = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
 
         }
@@ -100,6 +115,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.RichTextBox txtAuswahlOrdner;
+        private System.Windows.Forms.ListView listviewDuplicates;
     }
 }
 
