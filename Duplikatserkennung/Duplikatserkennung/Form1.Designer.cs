@@ -88,10 +88,11 @@
             this.listviewDuplicates.HideSelection = false;
             this.listviewDuplicates.Location = new System.Drawing.Point(130, 40);
             this.listviewDuplicates.Name = "listviewDuplicates";
-            this.listviewDuplicates.Size = new System.Drawing.Size(566, 97);
+            this.listviewDuplicates.Size = new System.Drawing.Size(566, 163);
             this.listviewDuplicates.TabIndex = 6;
             this.listviewDuplicates.UseCompatibleStateImageBehavior = false;
             this.listviewDuplicates.View = System.Windows.Forms.View.Details;
+            this.listviewDuplicates.SelectedIndexChanged += new System.EventHandler(this.listviewDuplicates_SelectedIndexChanged);
             // 
             // Form1
             // 
