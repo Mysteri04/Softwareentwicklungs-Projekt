@@ -79,7 +79,6 @@
             this.txtAuswahlOrdner.Size = new System.Drawing.Size(100, 96);
             this.txtAuswahlOrdner.TabIndex = 5;
             this.txtAuswahlOrdner.Text = "";
-            this.txtAuswahlOrdner.TextChanged += new System.EventHandler(this.txtAuswahlOrdner_TextChanged);
             // 
             // listviewDuplicates
             // 
@@ -88,7 +87,7 @@
             this.listviewDuplicates.HideSelection = false;
             this.listviewDuplicates.Location = new System.Drawing.Point(130, 40);
             this.listviewDuplicates.Name = "listviewDuplicates";
-            this.listviewDuplicates.Size = new System.Drawing.Size(566, 97);
+            this.listviewDuplicates.Size = new System.Drawing.Size(566, 163);
             this.listviewDuplicates.TabIndex = 6;
             this.listviewDuplicates.UseCompatibleStateImageBehavior = false;
             this.listviewDuplicates.View = System.Windows.Forms.View.Details;
