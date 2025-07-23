@@ -79,7 +79,6 @@
             this.txtAuswahlOrdner.Size = new System.Drawing.Size(100, 96);
             this.txtAuswahlOrdner.TabIndex = 5;
             this.txtAuswahlOrdner.Text = "";
-            this.txtAuswahlOrdner.TextChanged += new System.EventHandler(this.txtAuswahlOrdner_TextChanged);
             // 
             // listviewDuplicates
             // 
@@ -92,7 +91,6 @@
             this.listviewDuplicates.TabIndex = 6;
             this.listviewDuplicates.UseCompatibleStateImageBehavior = false;
             this.listviewDuplicates.View = System.Windows.Forms.View.Details;
-            this.listviewDuplicates.SelectedIndexChanged += new System.EventHandler(this.listviewDuplicates_SelectedIndexChanged);
             // 
             // Form1
             // 

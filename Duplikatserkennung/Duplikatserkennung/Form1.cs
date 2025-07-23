@@ -1,13 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;        // Für WinForms-Komponenten
-using System.Data;                 // Für Datenbindung (z.B. DataTable, falls später benötigt)
 using System.Drawing;             // Für grafische Elemente
-using System.Linq;                // Für LINQ-Operationen
-using System.Text;                // Für Textbearbeitung
-using System.Threading.Tasks;     // Für asynchrone Operationen (z.B. Backend später)
 using System.Windows.Forms;       // Für das UI mit Windows Forms
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Duplikatserkennung
 {
@@ -29,11 +23,6 @@ namespace Duplikatserkennung
 
             tooltipTimer.Interval = 1000; // 1 Sekunden Delay
             tooltipTimer.Tick += TooltipTimer_Tick;
-        }
-
-        private void txtAuswahlOrdner_TextChanged(object sender, EventArgs e)
-        {
-           
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -69,7 +58,7 @@ namespace Duplikatserkennung
             {
                 new FileData { Path = @"C:\Test\datei1.txt", Size = 1024, Hash = "ABC123" },
                 new FileData { Path = @"C:\Test\datei2.txt", Size = 2048, Hash = "DEF456" },
-                new FileData { Path = @"C:\Test\datei3.txt", Size = 512,  Hash = "ABC123" }
+                new FileData { Path = @"C:\Test\datei3.txt", Size = 512,  Hash = "ABC123" },
             };
 
             ZeigeDuplikate(testdaten);
@@ -87,8 +76,28 @@ namespace Duplikatserkennung
                     file.Size.ToString(),
                     file.Hash
                 });
+
                 listviewDuplicates.Items.Add(item);
             }
+
+            PasseListViewHoeheAn(duplikate.Count);
+
+            // Spaltenbreiten automatisch anpassen
+            foreach (ColumnHeader column in listviewDuplicates.Columns)
+            {
+                column.Width = -2;
+            }
+        }
+
+        //passt die Höhe der ListView an
+        private void PasseListViewHoeheAn(int anzahlEintraege)
+        {
+            int zeilenhoehe = listviewDuplicates.Font.Height + 10;
+            int headerhoehe = 25;
+            int neueHoehe = headerhoehe + (anzahlEintraege * zeilenhoehe);
+
+            int maxHoehe = 400;
+            listviewDuplicates.Height = Math.Min(neueHoehe, maxHoehe);
         }
 
         private void ListviewDuplicates_MouseMove(object sender, MouseEventArgs e)
@@ -121,11 +130,6 @@ namespace Duplikatserkennung
 
                 listViewToolTip.Show(tooltipText, this, clientPoint, 5000);
             }
-        }
-
-        private void listviewDuplicates_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            
         }
     }
 
