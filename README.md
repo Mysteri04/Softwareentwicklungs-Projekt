@@ -20,14 +20,14 @@ Die Anwendung wird mit **Windows Forms** entwickelt und bietet eine einfache gra
 
 | Einsatzzweck | Verwendetes Modell | Erfahrung / Bewertung der Nützlichkeit |
 | ------------------------------------------ | ---------------------- | ------------------------------------------------------------- |
-| Anforderungsanalyse | |  |
-| Architekturvorschläge / Designideen | | |
-| Code-Generierung (z. B. Klassen, Methoden) | | |
-| Testfallgenerierung (z. B. Unit Tests) | | |
-| Refactoring-Vorschläge | | |
-| Code Review | | |
-| Dokumentation (README, API-Doku etc.) | | |
-| Fehlersuche / Debugginghilfe | | |
-| Versionsverwaltung (Git-Strategien) | | |
-| Kommunikation (z. B. Commit Messages) | | |
-| Sonstiges | | |
+| Anforderungsanalyse | ChatGPT | groben roten Faden gegeben |
+| Architekturvorschläge / Designideen | - | - |
+| Code-Generierung (z. B. Klassen, Methoden) | ChatGPT | selten direkte Generierung, eher Erklärung von Code-Snippets |
+| Testfallgenerierung (z. B. Unit Tests) | - | - |
+| Refactoring-Vorschläge | - | - |
+| Code Review | ChatGPT | gute Vorschläge und weitere Ideen |
+| Dokumentation (README, API-Doku etc.) | ChatGPT | In der ReadMe geholfen um mit .md zu Arbeiten|
+| Fehlersuche / Debugginghilfe | ChatGPT | sehr hilfreich und zeitsparend |
+| Versionsverwaltung (Git-Strategien) | - | - |
+| Kommunikation (z. B. Commit Messages) | ChatGPT | bessere Formulierungen |
+| Sonstiges | - | - |
