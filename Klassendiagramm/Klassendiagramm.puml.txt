@@ -6,29 +6,24 @@ class FileData {
   + Hash : string
 }
 
-class DuplicateGroup {
-  - files : List<FileData>
-  + AddFile(file : FileData) : void
-  + GetFiles() : List<FileData>
+class Form1 {
+  - listViewToolTip : ToolTip
+  - tooltipTimer : Timer
+  - pendingTooltipItem : ListViewItem
+  - pendingMousePosition : Point
+
+  + Form1()
+  + ZeigeDuplikate(duplikate : List<FileData>) : void
+  + ZeigeAlleDateien(ordnerPfad : string) : void
+  + ZeigeDateien(dateien : List<FileData>) : void
+  + PasseListViewHoeheAn(anzahlEintraege : int) : void
+  + AnalysiereOrdner(ordnerPfad : string) : void
+  + BerechneSHA256(dateipfad : string) : string
+  + btnAnzeigen_Click(sender, e) : void
+  + button1_Click(sender, e) : void
+  + btnLoeschen_Click(sender, e) : void
 }
 
-class DuplicateFinder {
-  - files : List<FileData>
-  - duplicates : Dictionary<string, List<FileData>>
-  + ScanDirectory(path : string) : void
-  + ComputeHash(filePath : string) : string
-  + FindDuplicates() : Dictionary<string, List<FileData>>
-}
-
-class MainForm {
-  - duplicateFinder : DuplicateFinder
-  + ShowDuplicates() : void
-  + SelectFolder() : void
-  + DeleteFile(file : FileData) : void
-}
-
-DuplicateFinder "1" -- "*" DuplicateGroup
-DuplicateGroup "*" -- "*" FileData
-MainForm "1" -- "1" DuplicateFinder
+Form1 --> FileData : verwendet
 
 @enduml
