@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Drawing;             // Für grafische Elemente
 using System.Windows.Forms;       // Für das UI mit Windows Forms
+using System.IO;
+using System.Security.Cryptography;
 
 namespace Duplikatserkennung
 {
@@ -23,6 +25,8 @@ namespace Duplikatserkennung
 
             tooltipTimer.Interval = 1000; // 1 Sekunden Delay
             tooltipTimer.Tick += TooltipTimer_Tick;
+
+            btnAnzeigen.Click += btnAnzeigen_Click;
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -53,30 +57,22 @@ namespace Duplikatserkennung
             listviewDuplicates.Columns.Add("Dateiname", 300, HorizontalAlignment.Left);
             listviewDuplicates.Columns.Add("Dateigröße (Bytes)", 100, HorizontalAlignment.Right);
             listviewDuplicates.Columns.Add("Hashwert", 250, HorizontalAlignment.Left);
-
-            var testdaten = new List<FileData>
-            {
-                new FileData { Path = @"C:\Test\datei1.txt", Size = 1024, Hash = "ABC123" },
-                new FileData { Path = @"C:\Test\datei2.txt", Size = 2048, Hash = "DEF456" },
-                new FileData { Path = @"C:\Test\datei3.txt", Size = 512,  Hash = "ABC123" },
-            };
-
-            ZeigeDuplikate(testdaten);
         }
 
         public void ZeigeDuplikate(List<FileData> duplikate)
         {
             listviewDuplicates.Items.Clear();
 
-            foreach (var file in duplikate)
+            foreach (var file in duplikate)     //Durchläuft Duplikat Liste
             {
-                var item = new ListViewItem(new string[]
+                var item = new ListViewItem(new string[] //Erstellt Einträge der Duplikate Liste mit Dateinamen, Dateigröße und Hashwert
                 {
-                    file.Path,
+                    Path.GetFileName(file.Path),  // ← Nur der Dateiname
                     file.Size.ToString(),
                     file.Hash
                 });
 
+                item.Tag = file.Path;
                 listviewDuplicates.Items.Add(item);
             }
 
@@ -96,8 +92,9 @@ namespace Duplikatserkennung
             int headerhoehe = 25;
             int neueHoehe = headerhoehe + (anzahlEintraege * zeilenhoehe);
 
+            int minHoehe = 150;
             int maxHoehe = 400;
-            listviewDuplicates.Height = Math.Min(neueHoehe, maxHoehe);
+            listviewDuplicates.Height = Math.Max(minHoehe, Math.Min(neueHoehe, maxHoehe));
         }
 
         private void ListviewDuplicates_MouseMove(object sender, MouseEventArgs e)
@@ -117,6 +114,69 @@ namespace Duplikatserkennung
             }
         }
 
+        private void AnalysiereOrdner(string ordnerPfad)    //Erstellt Liste für Duplikate mit Hashwerten
+        {
+            if (!Directory.Exists(ordnerPfad))  //Überprüfen ob Ordner existiert
+            {
+                MessageBox.Show("Der gewählte Ordner existiert nicht.");
+                return;
+            }
+
+            var dateien = Directory.GetFiles(ordnerPfad, SearchOption.AllDirectories);  //alle Dateien im ausgewählten Ordner in Liste dateien sammeln
+            var hashMap = new Dictionary<string, List<FileData>>();
+
+            foreach (var datei in dateien)          //durchläuft dateien Liste
+            {
+                try
+                {
+                    string hash = BerechneSHA256(datei);     //bildet Hashwert der dateien
+                    var info = new FileInfo(datei); 
+
+                    var fileData = new FileData     //Erstellt neue Objekte von FileData mit Dateinamen, Größe und Hashwert
+                    {
+                        Path = datei,
+                        Size = info.Length,
+                        Hash = hash
+                    };
+
+                    if (!hashMap.ContainsKey(hash))
+                        hashMap[hash] = new List<FileData>();
+
+                    hashMap[hash].Add(fileData);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Fehler bei Datei {datei}:\n{ex.Message}");
+                }
+            }
+
+            var duplikate = new List<FileData>();
+
+            foreach (var gruppe in hashMap.Values)  
+            {
+                if (gruppe.Count > 1)               //Überprüft ob mehrere Hashwerte gleich sind und fügt sie zu duplikate hinzu
+                    duplikate.AddRange(gruppe);
+            }
+
+            if (duplikate.Count == 0)
+            {
+                MessageBox.Show("Keine Duplikate gefunden.");
+            }
+
+            ZeigeDuplikate(duplikate);          //Zeigt Liste aus Duplikaten an
+        }
+
+        private string BerechneSHA256(string dateipfad)
+        {
+            using (FileStream stream = File.OpenRead(dateipfad))    //Auslesen von Dateiinhalt
+            using (SHA256 sha = SHA256.Create())                     
+            {
+                byte[] hashBytes = sha.ComputeHash(stream);     //Erstellt Hashwert aus Dateiinhalt
+                return BitConverter.ToString(hashBytes).Replace("-", "");
+            }
+        }
+
+
         private void TooltipTimer_Tick(object sender, EventArgs e)
         {
             tooltipTimer.Stop();
@@ -129,6 +189,132 @@ namespace Duplikatserkennung
                 Point clientPoint = this.PointToClient(screenPoint);
 
                 listViewToolTip.Show(tooltipText, this, clientPoint, 5000);
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtAuswahlOrdner.Text))
+            {
+                MessageBox.Show("Bitte wähle zuerst einen Ordner aus.");
+                return;
+            }
+
+            AnalysiereOrdner(txtAuswahlOrdner.Text);
+    }
+
+        // Neue Methode: Zeigt alle Dateien im Ordner an (ohne Duplikate filtern)
+        private void ZeigeAlleDateien(string ordnerPfad)
+        {
+            if (!Directory.Exists(ordnerPfad))
+            {
+                MessageBox.Show("Der gewählte Ordner existiert nicht.");    
+                return;
+            }
+
+            var dateien = Directory.GetFiles(ordnerPfad, SearchOption.AllDirectories);
+            var alleDateien = new List<FileData>();     //Erstellt Liste von allen dateien
+
+            foreach (var datei in dateien)
+            {
+                try
+                {
+                    var info = new FileInfo(datei);
+                    alleDateien.Add(new FileData
+                    {
+                        Path = datei,
+                        Size = info.Length,
+                        Hash = ""  // Hash leer lassen, da hier nicht berechnet
+                    });
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Fehler bei Datei {datei}:\n{ex.Message}");
+                }
+            }
+
+            ZeigeDateien(alleDateien);
+        }
+
+        // Neue Methode: Allgemeines Anzeigen von Dateien in der ListView
+        private void ZeigeDateien(List<FileData> dateien)           //Erstellt Liste von allen Dateien
+        {
+            listviewDuplicates.Items.Clear();
+
+            foreach (var file in dateien)
+            {
+                var item = new ListViewItem(new string[]
+                {
+                    Path.GetFileName(file.Path),
+                    file.Size.ToString(),
+                    file.Hash
+                });
+
+                item.Tag = file.Path;
+                listviewDuplicates.Items.Add(item);
+            }
+
+            PasseListViewHoeheAn(dateien.Count);
+
+            foreach (ColumnHeader column in listviewDuplicates.Columns)
+            {
+                column.Width = -2;
+            }
+        }
+
+        private void btnAnzeigen_Click(object sender, EventArgs e)
+        {
+    
+            {
+                if (string.IsNullOrWhiteSpace(txtAuswahlOrdner.Text))       //Überprüfung ob Ordner gewählt wurde
+                {
+                    MessageBox.Show("Bitte wähle zuerst einen Ordner aus.");
+                    return;
+                }
+
+                ZeigeAlleDateien(txtAuswahlOrdner.Text);
+            }
+
+    }
+
+        private void btnLoeschen_Click(object sender, EventArgs e)
+        {
+            if (listviewDuplicates.SelectedItems.Count == 0)        //Überprüfung ob Datei zum löschen ausgewählt
+            {
+                MessageBox.Show("Bitte wähle zuerst eine Datei aus, die gelöscht werden soll.");
+                return;
+            }
+
+            var selectedItem = listviewDuplicates.SelectedItems[0];
+            string dateiName = selectedItem.SubItems[0].Text;
+
+            string kompletterPfad = (string)selectedItem.Tag;
+            if (string.IsNullOrEmpty(kompletterPfad) || !File.Exists(kompletterPfad))
+            {
+                MessageBox.Show("Die Datei konnte nicht gefunden werden oder der Pfad ist ungültig.");
+                return;
+            }
+
+            var confirmResult = MessageBox.Show($"Willst du die Datei wirklich löschen?\n{kompletterPfad}",
+                                                "Datei löschen",
+                                                MessageBoxButtons.YesNo,
+                                                MessageBoxIcon.Warning);
+
+            if (confirmResult == DialogResult.Yes)
+            {
+                try
+                {
+                    File.Delete(kompletterPfad);
+                    listviewDuplicates.Items.Remove(selectedItem);
+                    MessageBox.Show("Datei erfolgreich gelöscht.");
+
+                    // Optional: ListView Höhe anpassen
+                    PasseListViewHoeheAn(listviewDuplicates.Items.Count);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Fehler beim Löschen der Datei:\n{ex.Message}");
+                }
             }
         }
     }
