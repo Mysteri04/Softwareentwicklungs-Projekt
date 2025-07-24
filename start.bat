@@ -1,0 +1,1 @@
+start %~dp0\Duplikatserkennung\Duplikatserkennung\bin\Debug\Duplikatserkennung.exe
